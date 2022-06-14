@@ -8,19 +8,19 @@ services:
         depends_on:
             - "ticketapi"
             
-    ticketapi:
-        build:
-              context: ./TicketApi
-        restart: always
-        depends_on:
-            - "rabbitmq"
+#    ticketapi:
+#        build:
+#              context: ./TicketApi
+#        restart: always
+#        depends_on:
+#            - "rabbitmq"
         
-    ticketsender:
-        build:
-          context: ./TicketSender
-        restart: always
-        depends_on:
-            - "rabbitmq"
+#    ticketsender:
+#        build:
+#          context: ./TicketSender
+#        restart: always
+#        depends_on:
+#            - "rabbitmq"
         
     rabbitmq: # login guest:guest
         image: rabbitmq:3-management
