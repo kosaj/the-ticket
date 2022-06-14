@@ -5,8 +5,8 @@ services:
         build:
               context: ./TicketClient
         restart: always
-        depends_on:
-            - "ticketapi"
+#        depends_on:
+#            - "ticketapi"
             
 #    ticketapi:
 #        build:
