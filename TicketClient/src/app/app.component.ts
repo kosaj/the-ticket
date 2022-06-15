@@ -17,8 +17,8 @@ export class AppComponent {
   constructor(private readonly httpClient: HttpClient) {}
 
   ping(): void {
-    this.httpClient.get("api").pipe(take(1)).subscribe();
     this.httpClient.get("/api").pipe(take(1)).subscribe();
     this.httpClient.get("/api/").pipe(take(1)).subscribe();
+    this.httpClient.get("/api/zz").pipe(take(1)).subscribe();
   }
 }
