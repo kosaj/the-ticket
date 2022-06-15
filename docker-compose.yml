@@ -28,7 +28,7 @@ services:
             
     ticketapi:
         build:
-              context: ./TicketApi
+            context: ./TicketApi
         restart: on-failure
         networks:
             - example
