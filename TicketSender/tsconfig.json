@@ -1,13 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-    "lib": ["es2021"],
+    "target": "es5",
     "module": "commonjs",
-    "target": "es2021",
-    "types": ["node"],
+    "lib": ["es6"],
+
+    "rootDir": "src",
+    "outDir": "dist",
 
     "strict": true,
+    "noImplicitAny": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
