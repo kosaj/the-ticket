@@ -12,6 +12,7 @@ services:
             - '7000:80'
 
     ticketclient:
+        container_name: ticket-client
         build:
             context: ./TicketClient
         restart: on-failure
@@ -19,18 +20,20 @@ services:
             - "ticketapi"
             
     ticketapi:
+        container_name: ticket-api
         build:
             context: ./TicketApi
         restart: on-failure
         depends_on:
             - "rabbitmq"
         
-#    ticketsender:
-#        build:
-#          context: ./TicketSender
-#        restart: always
-#        depends_on:
-#            - "rabbitmq"
+    ticketsender:
+        container_name: ticket-sender
+        build:
+          context: ./TicketSender
+        restart: always
+        depends_on:
+            - "rabbitmq"
         
     rabbitmq: # login guest:guest
         image: rabbitmq:3-management

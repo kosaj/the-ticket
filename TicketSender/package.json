@@ -1,8 +1,8 @@
 {
-  "name": "ticketsender",
+  "name": "ticket-sender",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "src/main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,6 +12,9 @@
     "amqplib": "^0.10.0"
   },
   "devDependencies": {
+    "@tsconfig/node16": "^1.0.3",
+    "@types/amqplib": "^0.8.2",
+    "@types/node": "^18.0.0",
     "typescript": "^4.7.3"
   }
 }

@@ -2,8 +2,8 @@ FROM        node:16-alpine as build-stage
 WORKDIR     /app
 
 COPY        package*.json ./
-RUN         npm ci --only=production
-COPY        . .
+RUN         npm ci
+COPY        --chown=node:node . .
 RUN         npm run build
 
 FROM        nginx:1.21-alpine as production-stage
