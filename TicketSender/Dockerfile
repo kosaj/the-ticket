@@ -5,5 +5,4 @@ RUN         npm ci --only=production
 COPY        . .
 
 ENV         NODE_ENV production
-
 CMD         ["dumb-init", "node", "main.js"]
