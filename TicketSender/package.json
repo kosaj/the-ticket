@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "ts-node src/main.ts"
   },
   "author": "",
   "license": "MIT",
@@ -14,6 +15,7 @@
   "devDependencies": {
     "@types/amqplib": "^0.8.2",
     "@types/node": "^18.0.0",
+    "ts-node": "^10.8.1",
     "typescript": "^4.7.3"
   }
 }
