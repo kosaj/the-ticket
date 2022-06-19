@@ -4,8 +4,19 @@ import { Connection } from "amqplib";
 //   "amqp://username:password@localhost:5672"
 // );
 
-export class Test {
+class App {
   test!: Connection;
+
+  async init(): Promise<void> {
+    let result = new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    });
+
+    await result;
+  }
 }
 
-console.log("HELLO WORLD!");
+const current = Date.now();
+console.log("BEGIN");
+await new App().init();
+console.log("END", (Date.now() - current) / 1000);

@@ -1,13 +1,12 @@
 {
   "name": "ticket-sender",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/main.ts",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "ts-node src/main.ts"
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "watch": "tsc -w"
   },
-  "author": "",
   "license": "MIT",
   "dependencies": {
     "amqplib": "^0.10.0"
