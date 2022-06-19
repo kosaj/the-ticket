@@ -1,8 +1,32 @@
-import { Connection } from "amqplib";
+require("dotenv").config();
+import client, { Channel, Connection, ConsumeMessage } from "amqplib";
 export class App {
-  test: Connection | null = null;
+  connection: Connection | null;
 
   start(): void {
-    console.log("Hello from the underworld!");
+    this.connect();
+  }
+
+  async connect(): Promise<void> {
+    this.connection = await client.connect(
+      "amqp://username:password@localhost:5672"
+    );
+  }
+
+  async consume(): Promise<any> {
+    const consumer =
+      (channel: Channel) =>
+      (msg: ConsumeMessage | null): void => {
+        if (msg) {
+          // Display the received message
+          console.log(msg.content.toString());
+          // Acknowledge the message
+          channel.ack(msg);
+        }
+      };
+
+    const channel: Channel = await this.connection.createChannel();
+    await channel.assertQueue("myQueue");
+    await channel.consume("myQueue", consumer(channel));
   }
 }
