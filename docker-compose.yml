@@ -15,7 +15,7 @@ services:
         container_name: ticket-client
         build:
             context: ./TicketClient
-        restart: on-failure
+        restart: always
         depends_on:
             - "ticketapi"
             
@@ -23,7 +23,7 @@ services:
         container_name: ticket-api
         build:
             context: ./TicketApi
-        restart: on-failure
+        restart: always
         depends_on:
             - "rabbitmq"
         

@@ -3,6 +3,6 @@ export class App {
   test: Connection | null = null;
 
   start(): void {
-    console.log();
+    console.log("Hello from the underworld!");
   }
 }
