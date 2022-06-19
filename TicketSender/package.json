@@ -12,6 +12,7 @@
     "amqplib": "^0.10.0"
   },
   "devDependencies": {
+    "@tsconfig/node16": "^1.0.3",
     "@types/amqplib": "^0.8.2",
     "@types/node": "^18.0.0",
     "ts-node": "^10.8.1",
