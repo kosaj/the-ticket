@@ -3,19 +3,18 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "build": "tsc",
-    "watch": "tsc -w"
+    "start": "ts-node-dev --poll src/index.ts",
+    "build": "rimraf ./dist && tsc"
   },
   "license": "MIT",
   "dependencies": {
     "amqplib": "^0.10.0"
   },
   "devDependencies": {
-    "@tsconfig/node16": "^1.0.3",
     "@types/amqplib": "^0.8.2",
     "@types/node": "^18.0.0",
-    "ts-node": "^10.8.1",
+    "rimraf": "^3.0.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^4.7.3"
   }
 }

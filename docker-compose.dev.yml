@@ -31,7 +31,11 @@ services:
         container_name: ticket-sender
         build:
           context: ./TicketSender
-          target: production
+          target: development
+        command: npm run dev
+        volumes:
+            - ./:/usr/src/app
+            - /usr/src/app/node_modules
         restart: always
         depends_on:
             - "rabbitmq"
