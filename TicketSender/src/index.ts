@@ -4,10 +4,11 @@ import { App } from "./main";
 
 const rabbitSettings: Options.Connect = {
   protocol: "amqp",
-  hostname: "0.0.0.0",
+  hostname: "rabbitmq",
   port: 5672,
   username: "guest",
   password: "guest",
+  vhost: "/",
 };
 
 const app = new App(rabbitSettings);

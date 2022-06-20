@@ -8,8 +8,14 @@ export class App {
   }
 
   private async _initialize(settings: Options.Connect): Promise<void> {
-    this._connection = await client.connect(settings);
-    this._channel = await this._connection.createChannel();
+    try {
+      this._connection = await client.connect(settings);
+      this._channel = await this._connection.createChannel();
+
+      console.log("Connected!");
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async dispose(): Promise<void> {
