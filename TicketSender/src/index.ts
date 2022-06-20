@@ -2,7 +2,7 @@ require("dotenv").config();
 import { Options } from "amqplib";
 import { App } from "./main";
 
-//TODO: add those to env
+//TODO: add those to env/docker-compose
 const rabbitSettings: Options.Connect = {
   protocol: "amqp",
   hostname: "rabbitmq",
