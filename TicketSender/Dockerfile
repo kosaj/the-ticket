@@ -1,20 +1,18 @@
-FROM        node:16-alpine as ts-compiler
-WORKDIR     /app
-COPY        package*.json ./
-COPY        tsconfig*.json ./
+FROM        node:16-alpine as build-ts
+WORKDIR     /usr/src/app
+COPY        package*.json .
+COPY        tsconfig*.json .
 RUN         npm ci
-COPY        --chown=node:node . .
+COPY        . .
 RUN         npm run build
 
-FROM        node:14-alpine3.10 as ts-remover
-WORKDIR     /app
-COPY        --from=ts-compiler /app/package*.json ./
-COPY        --from=ts-compiler /app/dist ./
-RUN         npm ci
 
-FROM        node:14-alpine3.10
-WORKDIR     /app
-COPY        --from=ts-remover /app ./
+FROM        node:16-alpine
+ARG         NODE_ENV=production
+ENV         NODE_ENV=${NODE_ENV}
+WORKDIR     /usr/src/app
+COPY        package*.json .
+RUN         npm ci --only=production
+COPY        --from=build-ts /usr/src/app/dist ./dist
 
-ENV         NODE_ENV production
-CMD         ["node", "index.js"]
+CMD         [ "node", "dist/index.js" ]

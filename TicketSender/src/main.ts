@@ -8,9 +8,7 @@ export class App {
   }
 
   async connect(): Promise<void> {
-    this.connection = await client.connect(
-      "amqp://username:password@localhost:5672"
-    );
+    this.connection = await client.connect("amqp://guest:guest@localhost:5672");
   }
 
   async consume(): Promise<any> {

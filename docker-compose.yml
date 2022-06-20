@@ -39,9 +39,6 @@ services:
         image: rabbitmq:3-management
         hostname: rabbitmq
         restart: always
-        environment:
-            - "RABBITMQ_DEFAULT_PASS=password"
-            - "RABBITMQ_DEFAULT_USER=username"
         ports:
             - "5672:5672"
             - "15672:15672"
