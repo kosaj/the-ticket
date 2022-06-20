@@ -1,4 +1,8 @@
 import { App } from "./main";
 
 const app = new App();
-app.start();
+
+//NOTE: should this be async?
+process.once("SIGINT", () => {
+  app.dispose();
+});

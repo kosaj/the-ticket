@@ -1,30 +1,22 @@
 require("dotenv").config();
 import client, { Channel, Connection, ConsumeMessage } from "amqplib";
 export class App {
-  connection: Connection | null;
+  private _channel: Channel | null = null;
+  private _connection: Connection | null = null;
 
-  start(): void {
-    this.connect();
+  constructor() {
+    this._initialize();
   }
 
-  async connect(): Promise<void> {
-    this.connection = await client.connect("amqp://guest:guest@localhost:5672");
+  private async _initialize(): Promise<void> {
+    this._connection = await client.connect(
+      "amqp://guest:guest@localhost:5672"
+    );
+    this._channel = await this._connection.createChannel();
   }
 
-  async consume(): Promise<any> {
-    const consumer =
-      (channel: Channel) =>
-      (msg: ConsumeMessage | null): void => {
-        if (msg) {
-          // Display the received message
-          console.log(msg.content.toString());
-          // Acknowledge the message
-          channel.ack(msg);
-        }
-      };
-
-    const channel: Channel = await this.connection.createChannel();
-    await channel.assertQueue("myQueue");
-    await channel.consume("myQueue", consumer(channel));
+  async dispose(): Promise<void> {
+    await this._channel?.close();
+    await this._connection?.close();
   }
 }
