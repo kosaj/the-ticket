@@ -15,11 +15,14 @@ export class App {
       console.log("Connected!");
     } catch (error) {
       console.error(error);
+    } finally {
+      this.dispose();
     }
   }
 
   async dispose(): Promise<void> {
     await this._channel?.close();
     await this._connection?.close();
+    console.log("Disposed!");
   }
 }

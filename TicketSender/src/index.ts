@@ -17,4 +17,5 @@ const app = new App(rabbitSettings);
 //NOTE: should this be async?
 process.once("SIGINT", () => {
   app.dispose();
+  process.exit(0);
 });
