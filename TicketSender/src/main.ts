@@ -1,7 +1,9 @@
-import client, { Channel, Connection, Options } from "amqplib";
+import client, { Channel, Connection, ConsumeMessage, Options } from "amqplib";
+import { Payload } from "./payload";
 export class App {
   private _channel: Channel | null = null;
   private _connection: Connection | null = null;
+  private _queueName = "something";
 
   constructor(settings: Options.Connect) {
     this._initialize(settings);
@@ -13,10 +15,24 @@ export class App {
       this._channel = await this._connection.createChannel();
 
       console.log("Connected!");
+
+      await this._channel.assertQueue(this._queueName, { durable: true });
+      console.log("Queue checked!");
+
+      this._channel.consume(this._queueName, (message: ConsumeMessage) => {
+        try {
+          const payload: Payload = JSON.parse(message.content.toString());
+
+          console.log(payload);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          //NOTE: should we remove the message when we fail to parse it?
+          this._channel.ack(message);
+        }
+      });
     } catch (error) {
       console.error(error);
-    } finally {
-      this.dispose();
     }
   }
 

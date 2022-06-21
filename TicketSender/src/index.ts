@@ -12,10 +12,10 @@ const rabbitSettings: Options.Connect = {
   vhost: "/",
 };
 
-const app = new App(rabbitSettings);
+const application = new App(rabbitSettings);
 
-//NOTE: should this be async?
-process.once("SIGINT", () => {
-  app.dispose();
+process.once("SIGTERM", async () => {
+  console.log("SIGTERM received - shutting down");
+  await application.dispose();
   process.exit(0);
 });
