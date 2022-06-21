@@ -1,8 +1,8 @@
 # RABBIT-MQ
 
-## DOCS
+## LINKS
 
-- [AMQP](https://amqp-node.github.io/amqplib/channel_api.html)
+- [AMQP Documentation](https://amqp-node.github.io/amqplib/channel_api.html)
 
 ## MESSAGE EXAMPLE
 
