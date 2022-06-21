@@ -2,9 +2,14 @@ FROM        node:16-alpine as development
 WORKDIR     /usr/src/app
 COPY        package*.json .
 COPY        tsconfig*.json .
+COPY        /tools/wait-for-it.sh .    
 RUN         npm ci
 COPY        . .
 RUN         npm run build
+
+
+RUN         apk add --no-cache bash
+RUN         chmod +x wait-for-it.sh
 
 
 FROM        node:16-alpine as production
