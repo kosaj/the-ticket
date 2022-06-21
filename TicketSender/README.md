@@ -3,6 +3,7 @@
 ## LINKS
 
 - [AMQP Documentation](https://amqp-node.github.io/amqplib/channel_api.html)
+- [wait-for-it](https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh)
 
 ## MESSAGE EXAMPLE
 
