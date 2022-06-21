@@ -1,1 +1,3 @@
-# the-ticket
+# The Ticket
+
+- `docker-compose up --build -d`
