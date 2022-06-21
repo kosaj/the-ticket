@@ -1,5 +1,5 @@
 import client, { Channel, Connection, ConsumeMessage, Options } from "amqplib";
-import { Payload } from "./payload";
+import { TicketPayload } from "./ticket-payload";
 export class App {
   private _channel: Channel | null = null;
   private _connection: Connection | null = null;
@@ -21,9 +21,11 @@ export class App {
 
       this._channel.consume(this._queueName, (message: ConsumeMessage) => {
         try {
-          const payload: Payload = JSON.parse(message.content.toString());
+          const ticketPayload: TicketPayload = JSON.parse(
+            message.content.toString()
+          );
 
-          console.log(payload);
+          console.log(ticketPayload);
         } catch (error) {
           console.error(error);
         } finally {
