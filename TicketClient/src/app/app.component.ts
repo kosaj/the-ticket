@@ -28,7 +28,7 @@ export class AppComponent {
   constructor(private readonly httpClient: HttpClient) {}
 
   something(): void {
-    this.httpClient.get("/api/simple/something").pipe(take(1)).subscribe();
+    this.httpClient.get("/api").pipe(take(1)).subscribe();
   }
 
   login(name: string, password: string): void {
