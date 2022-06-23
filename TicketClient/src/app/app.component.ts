@@ -6,11 +6,21 @@ import { take } from "rxjs";
   selector: "app-root",
   template: `
     <h1>Welcome to {{ title }}!</h1>
-    <button (click)="something()">API SOMETHING</button>
-    <button (click)="login('guest', 'guest')">API LOGIN</button>
+    <div class="display-flex">
+      <button (click)="something()">API SOMETHING</button>
+      <button (click)="login('guest', 'guest')">API LOGIN</button>
+    </div>
     <router-outlet></router-outlet>
   `,
-  styles: [],
+  styles: [
+    `
+      .display-flex {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    `,
+  ],
 })
 export class AppComponent {
   title = "TicketClient";
