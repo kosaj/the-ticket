@@ -18,7 +18,7 @@ namespace TicketApi.Controllers
                 return BadRequest();
             }
 
-            if (user.Name == "guest" && user.Password == "guest")
+            if (user.UserName == "guest" && user.Password == "guest")
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@123"));
                 var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
