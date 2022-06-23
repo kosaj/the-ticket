@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TicketApi.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class SimpleController : ControllerBase
     {
         public SimpleController() { }
 
-        [HttpGet]
+        [HttpGet, Route("something")]
         public IEnumerable<string> GetSomething() => new string[] { "jajko", "placki" };
     }
 }

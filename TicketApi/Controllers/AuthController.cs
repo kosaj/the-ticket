@@ -11,6 +11,7 @@ namespace TicketApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        [HttpPost, Route("login")]
         public IActionResult Login([FromBody] User user)
         {
             if (user == null)
