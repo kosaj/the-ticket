@@ -1,50 +1,51 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using TicketApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     var services = builder.Services;
-    //services.AddAuthentication(opt =>
-    //{
-    //    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    //    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    //}).AddJwtBearer(options =>
-    //{
-    //    options.TokenValidationParameters = new TokenValidationParameters
-    //    {
-    //        ValidateIssuer = true,
-    //        ValidateAudience = true,
-    //        ValidateLifetime = true,
-    //        ValidateIssuerSigningKey = true,
+    var configuration = builder.Configuration;
+    services.AddAuthentication(opt =>
+    {
+        opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
 
-    //        ValidIssuer = "http://localhost:7000",
-    //        ValidAudience = "http://localhost:7000",
-    //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@123"))
-    //    };
-    //});
+            ValidIssuer = configuration["Jwt:Issuer"],
+            ValidAudience = configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+        };
+    });
     //services.AddCors();
     services.AddControllers();
 }
 
-
 var app = builder.Build();
 {
-    //app.UseCors(configurePolicy =>
-    //{
-    //    configurePolicy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-    //});
-
-    //app.UseAuthentication();
-    //app.UseAuthorization();
-
-    app.MapControllers();
+    app.UseAuthentication();
+    app.UseAuthorization();
 }
+
+app.MapPost("/api/auth/login", [AllowAnonymous] (UserDto user) =>
+{
+    return Results.Unauthorized();
+});
 
 app.Run();
 
-
 //app.MapGet("/", () => "Hello World!");
 //app.MapGet("/zz", () => "zz -> Hello World!");
-
-
