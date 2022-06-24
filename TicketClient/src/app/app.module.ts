@@ -11,6 +11,10 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { NotFoundModule } from "./pages/not-found/not-found.component";
 import { HomeModule } from "./pages/home/home.component";
+import {
+  PageHeaderComponent,
+  PageHeaderModule,
+} from "./components/page-header/page-header.component";
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,9 +29,9 @@ import { HomeModule } from "./pages/home/home.component";
     NotFoundModule,
 
     //
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
+    PageHeaderModule,
+
+    //
   ],
   bootstrap: [AppComponent],
 })

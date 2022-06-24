@@ -5,16 +5,7 @@ import { take } from "rxjs";
 @Component({
   selector: "app-root",
   template: `
-    <mat-toolbar>
-      <span>Ticket-Machine</span>
-      <span class="horizontal-space"></span>
-      <button mat-icon-button (click)="login('guest', 'guest')">
-        <mat-icon>login</mat-icon>
-      </button>
-      <button mat-icon-button>
-        <mat-icon>logout</mat-icon>
-      </button>
-    </mat-toolbar>
+    <app-page-header></app-page-header>
     <router-outlet></router-outlet>
   `,
   styles: [
@@ -25,16 +16,4 @@ import { take } from "rxjs";
     `,
   ],
 })
-export class AppComponent {
-  constructor(private readonly httpClient: HttpClient) {}
-
-  login(name: string, password: string): void {
-    this.httpClient
-      .post("/api/auth/login", {
-        username: name,
-        password: password,
-      })
-      .pipe(take(1))
-      .subscribe();
-  }
-}
+export class AppComponent {}
