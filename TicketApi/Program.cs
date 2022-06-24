@@ -2,12 +2,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using TicketApi.Models;
 
 //https://github.com/mohamadlawand087/MinimalApi-JWT/blob/main/TodoApi/Program.cs
 
 var builder = WebApplication.CreateBuilder(args);
+
 {
     builder.Services.AddAuthentication(options =>
     {
@@ -49,11 +51,16 @@ app.MapPost("/auth/login", [AllowAnonymous] (UserDto user) =>
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
+            Subject = new ClaimsIdentity(new[] {
+                new Claim("Id", "1"),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+                new Claim(JwtRegisteredClaimNames.Email, user.Username),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            }),
             Expires = DateTime.Now.AddMinutes(5),
             Audience = audience,
             Issuer = issuer,
             SigningCredentials = credentials,
-
         };
 
         var token = jwtTokenHandler.CreateToken(tokenDescriptor);

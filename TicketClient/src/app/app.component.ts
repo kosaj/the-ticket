@@ -5,31 +5,28 @@ import { take } from "rxjs";
 @Component({
   selector: "app-root",
   template: `
-    <h1>Welcome to {{ title }}!</h1>
-    <div class="display-flex">
-      <button (click)="something()">API SOMETHING</button>
-      <button (click)="login('guest', 'guest')">API LOGIN</button>
-    </div>
+    <mat-toolbar>
+      <span>Ticket-Machine</span>
+      <span class="horizontal-space"></span>
+      <button mat-icon-button (click)="login('guest', 'guest')" )>
+        <mat-icon>login</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
     <router-outlet></router-outlet>
   `,
   styles: [
     `
-      .display-flex {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+      .horizontal-space {
+        flex: 1 1 auto;
       }
     `,
   ],
 })
 export class AppComponent {
-  title = "TicketClient";
-
   constructor(private readonly httpClient: HttpClient) {}
-
-  something(): void {
-    this.httpClient.get("/api").pipe(take(1)).subscribe();
-  }
 
   login(name: string, password: string): void {
     this.httpClient
