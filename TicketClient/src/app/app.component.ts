@@ -8,7 +8,7 @@ import { take } from "rxjs";
     <mat-toolbar>
       <span>Ticket-Machine</span>
       <span class="horizontal-space"></span>
-      <button mat-icon-button (click)="login('guest', 'guest')" )>
+      <button mat-icon-button (click)="login('guest', 'guest')">
         <mat-icon>login</mat-icon>
       </button>
       <button mat-icon-button>
