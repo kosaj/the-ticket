@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using TicketApi.Models;
 
@@ -34,6 +35,30 @@ var app = builder.Build();
 
 app.MapPost("/auth/login", [AllowAnonymous] (UserDto user) =>
 {
+    if (user.Username == builder.Configuration["Admin:Username"] && user.Password == builder.Configuration["Admin:Password"])
+    {
+        var secureKey = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
+
+        var issuer = builder.Configuration["Jwt:Issuer"];
+        var audience = builder.Configuration["Jwt:Audience"];
+        var securityKey = new SymmetricSecurityKey(secureKey);
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512);
+
+        var jwtTokenHandler = new JwtSecurityTokenHandler();
+
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Expires = DateTime.Now.AddMinutes(5),
+            Audience = audience,
+            Issuer = issuer,
+            SigningCredentials = credentials
+        };
+
+        var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+        var jwtToken = jwtTokenHandler.WriteToken(token);
+        return Results.Ok(jwtToken);
+    }
+
     return Results.Unauthorized();
 });
 
