@@ -22,7 +22,13 @@ import { take } from "rxjs";
       <mat-icon>logout</mat-icon>
     </button>
   </mat-toolbar>`,
-  styles: [],
+  styles: [
+    `
+      .horizontal-space {
+        flex: 1 1 auto;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageHeaderComponent {

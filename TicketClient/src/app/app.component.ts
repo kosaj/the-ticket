@@ -8,12 +8,6 @@ import { take } from "rxjs";
     <app-page-header></app-page-header>
     <router-outlet></router-outlet>
   `,
-  styles: [
-    `
-      .horizontal-space {
-        flex: 1 1 auto;
-      }
-    `,
-  ],
+  styles: [],
 })
 export class AppComponent {}
