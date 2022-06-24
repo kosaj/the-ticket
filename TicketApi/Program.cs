@@ -5,8 +5,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using TicketApi.Models;
 
-var builder = WebApplication.CreateBuilder(args);
+//https://github.com/mohamadlawand087/MinimalApi-JWT/blob/main/TodoApi/Program.cs
 
+var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddAuthentication(options =>
     {
@@ -51,7 +52,8 @@ app.MapPost("/auth/login", [AllowAnonymous] (UserDto user) =>
             Expires = DateTime.Now.AddMinutes(5),
             Audience = audience,
             Issuer = issuer,
-            SigningCredentials = credentials
+            SigningCredentials = credentials,
+
         };
 
         var token = jwtTokenHandler.CreateToken(tokenDescriptor);
