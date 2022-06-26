@@ -6,6 +6,7 @@ import {
   NgModule,
 } from "@angular/core";
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   FormsModule,
@@ -15,11 +16,25 @@ import {
 import { MatButton, MatButtonModule } from "@angular/material/button";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
+import { MatInputModule } from "@angular/material/input";
 
 @Component({
   selector: "app-login",
   template: `
     <form [formGroup]="formGroup" (submit)="login()">
+      <mat-form-field appearance="fill">
+        <input type="text" matInput [formControl]="usernameFormControl" />
+        <mat-error *ngIf="usernameFormControl.hasError('required')">
+          Username is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <input type="password" matInput [formControl]="passwordFormControl" />
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
       <button mat-button type="submit">Confirm</button>
     </form>
   `,
@@ -32,6 +47,14 @@ export class LoginComponent {
     password: new FormControl("", Validators.required),
   });
 
+  readonly usernameFormControl: FormControl = <FormControl>(
+    this.formGroup.controls["username"]
+  );
+
+  readonly passwordFormControl: FormControl = <FormControl>(
+    this.formGroup.controls["password"]
+  );
+
   constructor(private readonly authService: AuthService) {}
 
   login() {
@@ -39,10 +62,10 @@ export class LoginComponent {
       return;
     }
 
-    const username = this.formGroup.controls["username"].value;
-    const password = this.formGroup.controls["password"].value;
-
-    this.authService.login(username, password);
+    this.authService.login(
+      this.usernameFormControl.value,
+      this.passwordFormControl.value
+    );
   }
 }
 
@@ -53,7 +76,10 @@ const routes: Routes = [{ path: "", component: LoginComponent }];
   imports: [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
+
+    //material
     MatButtonModule,
+    MatInputModule,
   ],
 })
 export class LoginModule {}
