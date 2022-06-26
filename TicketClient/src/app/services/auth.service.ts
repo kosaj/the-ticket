@@ -29,8 +29,8 @@ export class AuthService implements OnDestroy {
         password: password,
       })
       .pipe(
-        tap((token: string) => {
-          localStorage.setItem("token", token);
+        tap((accessToken: string) => {
+          localStorage.setItem("access_token", accessToken);
           this._authenticatedSource.next(true);
         }),
         tap(() => {
