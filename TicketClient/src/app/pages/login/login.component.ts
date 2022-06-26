@@ -23,14 +23,24 @@ import { MatInputModule } from "@angular/material/input";
   template: `
     <form [formGroup]="formGroup" (submit)="login()">
       <mat-form-field appearance="fill">
-        <input type="text" matInput [formControl]="usernameFormControl" />
+        <input
+          type="text"
+          matInput
+          [formControl]="usernameFormControl"
+          placeholder="Username"
+        />
         <mat-error *ngIf="usernameFormControl.hasError('required')">
           Username is <strong>required</strong>
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <input type="password" matInput [formControl]="passwordFormControl" />
+        <input
+          type="password"
+          matInput
+          [formControl]="passwordFormControl"
+          placeholder="Password"
+        />
         <mat-error *ngIf="passwordFormControl.hasError('required')">
           Password is <strong>required</strong>
         </mat-error>
@@ -38,7 +48,14 @@ import { MatInputModule } from "@angular/material/input";
       <button mat-button type="submit">Confirm</button>
     </form>
   `,
-  styles: [],
+  styles: [
+    `
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
