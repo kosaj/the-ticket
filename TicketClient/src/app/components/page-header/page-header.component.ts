@@ -5,6 +5,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { HttpClient } from "@angular/common/http";
 import { take } from "rxjs/operators";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Component({
   selector: "app-page-header",
@@ -28,7 +29,10 @@ import { take } from "rxjs/operators";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageHeaderComponent {
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(
+    private readonly httpClient: HttpClient,
+    public readonly jwtHelper: JwtHelperService
+  ) {}
 
   login(name: string, password: string): void {
     this.httpClient
@@ -38,6 +42,14 @@ export class PageHeaderComponent {
       })
       .pipe(take(1))
       .subscribe();
+  }
+
+  test() {
+    const token = this.jwtHelper.tokenGetter();
+
+    console.log(this.jwtHelper.isTokenExpired()); // true or false
+    console.log(this.jwtHelper.getTokenExpirationDate()); // date
+    console.log(this.jwtHelper.decodeToken(token)); // token
   }
 }
 
