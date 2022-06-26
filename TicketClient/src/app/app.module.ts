@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { PageHeaderModule } from "./components/page-header/page-header.component";
 import { HttpClientModule } from "@angular/common/http";
 import { JwtModule } from "@auth0/angular-jwt";
+import { AuthService } from "./services/auth.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,5 +29,6 @@ import { JwtModule } from "@auth0/angular-jwt";
     PageHeaderModule,
   ],
   bootstrap: [AppComponent],
+  providers: [AuthService],
 })
 export class AppModule {}
