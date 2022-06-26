@@ -79,10 +79,9 @@ export class LoginComponent {
       return;
     }
 
-    this.authService.login(
-      this.usernameFormControl.value,
-      this.passwordFormControl.value
-    );
+    this.authService
+      .login(this.usernameFormControl.value, this.passwordFormControl.value)
+      .subscribe();
   }
 }
 

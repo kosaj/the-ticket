@@ -20,10 +20,10 @@ export class AuthService implements OnDestroy {
     this._destroySource.complete();
   }
 
-  login(username: string, password: string): void {
+  login(username: string, password: string): Observable<string> {
     this._authenticatedSource.next(false);
 
-    this.httpClient
+    return this.httpClient
       .post<string>("/api/auth/login", {
         username: username,
         password: password,
@@ -34,7 +34,6 @@ export class AuthService implements OnDestroy {
           this._authenticatedSource.next(true);
         }),
         take(1)
-      )
-      .subscribe();
+      );
   }
 }
