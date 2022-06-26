@@ -15,7 +15,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
     <button mat-icon-button (click)="login('guest', 'guest')">
       <mat-icon>login</mat-icon>
     </button>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="test()">
       <mat-icon>logout</mat-icon>
     </button>
   </mat-toolbar>`,
@@ -44,7 +44,7 @@ export class PageHeaderComponent {
       .subscribe();
   }
 
-  test() {
+  test(): void {
     const token = this.jwtHelper.tokenGetter();
 
     console.log(this.jwtHelper.isTokenExpired()); // true or false
