@@ -33,6 +33,11 @@ export class AuthService implements OnDestroy {
           localStorage.setItem("token", token);
           this._authenticatedSource.next(true);
         }),
+        tap(() => {
+          console.log(this.jwtHelper.isTokenExpired()); // true or false
+          console.log(this.jwtHelper.getTokenExpirationDate()); // date
+          console.log(this.jwtHelper.decodeToken(this.jwtHelper.tokenGetter())); // token
+        }),
         take(1)
       );
   }
