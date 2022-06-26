@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, OnDestroy } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { take, tap } from "rxjs/operators";
 
 @Injectable()
@@ -20,12 +20,12 @@ export class AuthService implements OnDestroy {
     this._destroySource.complete();
   }
 
-  login(name: string, password: string): void {
+  login(username: string, password: string): void {
     this._authenticatedSource.next(false);
 
     this.httpClient
       .post<string>("/api/auth/login", {
-        username: name,
+        username: username,
         password: password,
       })
       .pipe(

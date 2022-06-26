@@ -8,6 +8,8 @@ import { PageHeaderModule } from "./components/page-header/page-header.component
 import { HttpClientModule } from "@angular/common/http";
 import { JwtModule } from "@auth0/angular-jwt";
 import { AuthService } from "./services/auth.service";
+import { LoginComponent } from "./pages/login/login.component";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +18,7 @@ import { AuthService } from "./services/auth.service";
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
 
     //
     JwtModule.forRoot({
