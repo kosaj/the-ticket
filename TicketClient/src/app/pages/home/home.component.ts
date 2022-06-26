@@ -1,9 +1,10 @@
 import {
-  Component,
-  OnInit,
   ChangeDetectionStrategy,
+  Component,
   NgModule,
+  OnInit,
 } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
 
 @Component({
   selector: "app-home",
@@ -13,8 +14,10 @@ import {
 })
 export class HomeComponent {}
 
+const routes: Routes = [{ path: "", component: HomeComponent }];
+
 @NgModule({
   declarations: [HomeComponent],
-  exports: [HomeComponent],
+  imports: [RouterModule.forChild(routes)],
 })
 export class HomeModule {}
