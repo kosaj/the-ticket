@@ -21,9 +21,10 @@ services:
            
     ticketdb:
         image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
-        ACCEPT_EULA: "Y"
-        SA_PASSWORD: "guest"
-        MSSQL_PID: Express
+        environment:
+            ACCEPT_EULA: "Y"
+            SA_PASSWORD: "49R8MXw#49c6wT9Q8!"
+            MSSQL_PID: Express
         ports:
             - "1433:1433"
            
@@ -34,6 +35,11 @@ services:
         restart: always
         depends_on:
             - "rabbitmq"
+        environment:
+            db_container: "ticketdb"
+            db_name: "Ticket"
+            db_username: "SA"
+            db_password: "49R8MXw#49c6wT9Q8!"
         
     ticketsender:
         container_name: ticket-sender
@@ -43,6 +49,7 @@ services:
         restart: always
         depends_on:
             - "rabbitmq"
+            - "ticketdb"
         
     rabbitmq: # login guest:guest
         image: rabbitmq:3-management

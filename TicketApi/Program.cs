@@ -13,52 +13,55 @@ using TicketApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 {
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("ConnStr")));
 
-    builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-        .AddEntityFrameworkStores<ApplicationDbContext>()
-        .AddDefaultTokenProviders();
+    Console.WriteLine(builder.Configuration["db_container"]);
 
-    builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-    }).AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
+    //builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    //    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnStr")));
 
-            ValidAudience = builder.Configuration["Jwt:ValidAudience"],
-            ValidIssuer = builder.Configuration["Jwt:ValidIssuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"])),
-        };
-    });
+    //builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    //    .AddEntityFrameworkStores<ApplicationDbContext>()
+    //    .AddDefaultTokenProviders();
 
-    builder.Services.AddControllers();
+    //builder.Services.AddAuthentication(options =>
+    //{
+    //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    //    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    //}).AddJwtBearer(options =>
+    //{
+    //    options.TokenValidationParameters = new TokenValidationParameters
+    //    {
+    //        ValidateIssuer = true,
+    //        ValidateAudience = true,
+    //        ValidateLifetime = true,
+    //        ValidateIssuerSigningKey = true,
 
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    //        ValidAudience = builder.Configuration["Jwt:ValidAudience"],
+    //        ValidIssuer = builder.Configuration["Jwt:ValidIssuer"],
+    //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"])),
+    //    };
+    //});
+
+    //builder.Services.AddControllers();
+
+    //builder.Services.AddEndpointsApiExplorer();
+    //builder.Services.AddSwaggerGen();
 }
 
 var app = builder.Build();
 
 {
-    //if (app.Environment.IsDevelopment())
-    //{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    //}
+    ////if (app.Environment.IsDevelopment())
+    ////{
+    //app.UseSwagger();
+    //app.UseSwaggerUI();
+    ////}
 
-    app.UseAuthentication();
-    app.UseAuthorization();
+    //app.UseAuthentication();
+    //app.UseAuthorization();
 
-    app.MapControllers();
+    //app.MapControllers();
 
     app.Run();
 }
