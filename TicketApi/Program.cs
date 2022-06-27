@@ -20,6 +20,7 @@ var builder = WebApplication.CreateBuilder(args);
     var password = builder.Configuration["db_password"];
 
     var connectionString = $"Server={server}.{port};Initial Catalog={database};User ID={user};Password={password}";
+    Console.WriteLine(connectionString);
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString));
