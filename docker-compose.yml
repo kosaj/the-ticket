@@ -37,6 +37,7 @@ services:
             - "rabbitmq"
         environment:
             db_container: "ticketdb"
+            db_port: "1433"
             db_name: "Ticket"
             db_username: "SA"
             db_password: "49R8MXw#49c6wT9Q8!"
