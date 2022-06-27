@@ -24,7 +24,7 @@ export class AuthService implements OnDestroy {
     this._authenticatedSource.next(false);
 
     return this.httpClient
-      .post<string>("/api/auth/login", {
+      .post<string>("/api/authenticate/login", {
         username: username,
         password: password,
       })

@@ -18,7 +18,15 @@ services:
         restart: always
         depends_on:
             - "ticketapi"
-            
+           
+    ticketdb:
+        image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+        ACCEPT_EULA: "Y"
+        SA_PASSWORD: "guest"
+        MSSQL_PID: Express
+        ports:
+            - "1433:1433"
+           
     ticketapi:
         container_name: ticket-api
         build:

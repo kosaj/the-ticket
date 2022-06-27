@@ -11,7 +11,7 @@ using TicketApi.Models;
 
 namespace TicketApi
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
