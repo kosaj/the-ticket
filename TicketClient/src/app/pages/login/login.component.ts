@@ -45,7 +45,7 @@ import { MatInputModule } from "@angular/material/input";
           Password is <strong>required</strong>
         </mat-error>
       </mat-form-field>
-      <button mat-button type="submit">Confirm</button>
+      <button mat-button type="submit">Login</button>
     </form>
   `,
   styles: [
