@@ -6,9 +6,18 @@ namespace TicketApi
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Place> Places => Set<Place>();
+
+        public DbSet<Show> Shows => Set<Show>();
+
+        public DbSet<Ticket> Tickets => Set<Ticket>();
+
+        public DbSet<Address> Addresses => Set<Address>();
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

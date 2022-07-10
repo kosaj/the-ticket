@@ -20,11 +20,11 @@ var builder = WebApplication.CreateBuilder(args);
     //var password = builder.Configuration["db_password"];
 
     //var connectionString = $"Server={server}.{port};Initial Catalog={database};User ID={user};Password={password}";
-    var connectionString = $"Server=ticketdb.1433;Initial Catalog=Ticket;User ID=sa;Password=49R8MXw#49c6wT9Q8!";
-    Console.WriteLine(connectionString);
+    //var connectionString = $"Server=ticketdb,1433;Initial Catalog=TicketDb;User ID=SA;Password=49R8MXw#49c6wT9Q8!";
+    //Console.WriteLine(connectionString);
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(connectionString));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
     builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -59,6 +59,8 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 {
+    app.SeedDatabase();
+
     //if (app.Environment.IsDevelopment())
     //{
     app.UseSwagger();
