@@ -1,20 +1,26 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine as build-env
-WORKDIR /src
+FROM		mcr.microsoft.com/dotnet/sdk:6.0-alpine as build-env
+WORKDIR		/src
 
-RUN apk add --no-cache icu-libs
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+RUN			apk add --no-cache icu-libs
+ENV			DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
-COPY *.csproj ./
-RUN dotnet restore
+COPY		*.csproj ./
+RUN			dotnet restore
 
-COPY . .
-RUN dotnet publish -c Release -o out
+COPY		. .
+RUN			dotnet build -c Release -o /app
+RUN			dotnet tool install --global dotnet-ef
+ENV			PATH="${PATH}:/root/.dotnet/tools"
+RUN			dotnet ef database update
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
-WORKDIR /app
-COPY --from=build-env /src/out .
+FROM		build-env AS publish
+RUN			dotnet publish -c Release -o out
 
-RUN apk add --no-cache icu-libs
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+FROM		mcr.microsoft.com/dotnet/aspnet:6.0-alpine
+WORKDIR		/src
+COPY		--from=publish /src/out .
 
-ENTRYPOINT [ "dotnet", "TicketApi.dll" ]
+RUN			apk add --no-cache icu-libs
+ENV			DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
+ENTRYPOINT	[ "dotnet", "TicketApi.dll" ]

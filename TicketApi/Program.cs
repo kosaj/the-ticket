@@ -13,13 +13,14 @@ using TicketApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 {
-    var server = builder.Configuration["db_container"];
-    var port = builder.Configuration["db_port"];
-    var database = builder.Configuration["db_name"];
-    var user = builder.Configuration["db_username"];
-    var password = builder.Configuration["db_password"];
+    //var server = builder.Configuration["db_container"];
+    //var port = builder.Configuration["db_port"];
+    //var database = builder.Configuration["db_name"];
+    //var user = builder.Configuration["db_username"];
+    //var password = builder.Configuration["db_password"];
 
-    var connectionString = $"Server={server}.{port};Initial Catalog={database};User ID={user};Password={password}";
+    //var connectionString = $"Server={server}.{port};Initial Catalog={database};User ID={user};Password={password}";
+    var connectionString = $"Server=ticketdb.1433;Initial Catalog=Ticket;User ID=sa;Password=49R8MXw#49c6wT9Q8!";
     Console.WriteLine(connectionString);
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -71,6 +72,11 @@ var app = builder.Build();
 
     app.Run();
 }
+
+
+//"ConnectionStrings": {
+//  "ConnStr": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=JWTRefreshTokenDB;Integrated Security=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+//},
 
 ////https://github.com/mohamadlawand087/MinimalApi-JWT/blob/main/TodoApi/Program.cs
 

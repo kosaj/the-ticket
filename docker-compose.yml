@@ -33,17 +33,18 @@ services:
            
     ticketapi:
         container_name: ticket-api
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Production
+            - db_container=ticketdb
+            - db_port=1433
+            - db_name=Ticket
+            - db_username=sa
+            - db_password=49R8MXw#49c6wT9Q8!
         build:
             context: ./TicketApi
         restart: always
         depends_on:
             - "rabbitmq"
-        environment:
-            db_container: "ticketdb"
-            db_port: "1433"
-            db_name: "Ticket"
-            db_username: "sa"
-            db_password: "49R8MXw#49c6wT9Q8!"
         
     ticketsender:
         container_name: ticket-sender
