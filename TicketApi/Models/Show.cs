@@ -9,5 +9,7 @@
         public DateTime Date { get; set; }
         public int Availability { get; set; }
         public int Duration { get; set; }
+
+        public virtual Place Place { get; set; }
     }
 }
