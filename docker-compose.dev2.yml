@@ -17,12 +17,14 @@ services:
       context: ./TicketClient
       target: development-stage
     command: npm run docker-start
-    volumes:
-      - ./:/app
+    #    volumes:
+    #      - ./:/app
     #      - /app/node_modules
     restart: always
     depends_on:
       - "ticketapi"
+    ports:
+      - "4200:1433"
 
   ticketdb:
     image: mcr.microsoft.com/mssql/server:2019-latest
