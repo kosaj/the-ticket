@@ -296,10 +296,15 @@ namespace TicketApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("PlaceId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
                     b.HasKey("ShowId");
+
+                    b.HasIndex("PlaceId");
 
                     b.ToTable("Shows");
                 });
@@ -323,6 +328,8 @@ namespace TicketApi.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("TicketId");
+
+                    b.HasIndex("ShowId");
 
                     b.ToTable("Tickets");
                 });
@@ -387,6 +394,28 @@ namespace TicketApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("TicketApi.Models.Show", b =>
+                {
+                    b.HasOne("TicketApi.Models.Place", "Place")
+                        .WithMany()
+                        .HasForeignKey("PlaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Place");
+                });
+
+            modelBuilder.Entity("TicketApi.Models.Ticket", b =>
+                {
+                    b.HasOne("TicketApi.Models.Show", "Show")
+                        .WithMany()
+                        .HasForeignKey("ShowId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Show");
                 });
 #pragma warning restore 612, 618
         }
